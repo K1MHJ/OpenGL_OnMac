@@ -6,6 +6,7 @@ project(
   VERSION 0.1
   DESCRIPTION ""
 )
+
 set(CMAKE_CXX_STANDARD 17)
 set(GLEW_H /opt/homebrew/Cellar/glew/2.2.0_1/include)
 set(GLFW_H /opt/homebrew/Cellar/glfw/3.3.8/include)
@@ -42,6 +43,13 @@ target_compile_options(${TARGET} PUBLIC -Wall)
 target_link_libraries(${TARGET} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
 target_link_libraries(${TARGET} "-framework OpenGL")
 target_link_libraries(${TARGET} "-framework GLUT")
+add_custom_command(
+  TARGET ${TARGET} POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy
+  ${CMAKE_CURRENT_SOURCE_DIR}/Tuto02/SimpleVertexShader.vertexshader
+  ${CMAKE_CURRENT_SOURCE_DIR}/Tuto02/SimpleFragmentShader.fragmentshader
+  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/
+  )
 
 # Tuto 3
 set(TARGET Tuto03_Exe)
@@ -57,3 +65,10 @@ target_compile_options(${TARGET} PUBLIC -Wall)
 target_link_libraries(${TARGET} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
 target_link_libraries(${TARGET} "-framework OpenGL")
 target_link_libraries(${TARGET} "-framework GLUT")
+add_custom_command(
+  TARGET ${TARGET} POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy
+  ${CMAKE_CURRENT_SOURCE_DIR}/Tuto03/SimpleTransform.vertexshader
+  ${CMAKE_CURRENT_SOURCE_DIR}/Tuto03/SingleColor.fragmentshader
+  ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/
+  )
